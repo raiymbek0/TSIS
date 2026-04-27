@@ -49,7 +49,7 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-            # Управление змейкой
+            # HUD
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP and snake.direction != (0, 20):
                     snake.direction = (0, -20)
