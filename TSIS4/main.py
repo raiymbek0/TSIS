@@ -40,7 +40,7 @@ def main():
     level = 1
     running = True
 
-    # 2. ОСНОВНОЙ ИГРОВОЙ ЦИКЛ
+
     while running:
         screen.fill((0, 0, 0))  # Очистка экрана
 
