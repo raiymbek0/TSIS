@@ -5,7 +5,6 @@ from db import Database
 from game import Snake, Food
 from config import DB_CONFIG, SCREEN_WIDTH, SCREEN_HEIGHT
 
-# Инициализация Pygame
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Snake TSIS4 - PostgreSQL Edition')
@@ -25,14 +24,13 @@ def load_settings():
 
 
 def main():
-    # 1. Ввод имени в консоли (как на твоем скрине)
     username = input("Enter Username: ")
 
     settings = load_settings()
     snake = Snake(settings['snake_color'])
 
-    # Инициализация еды и препятствий (Task 3.2, 3.4)
-    # Передаем пустой список препятствий для начала
+    # Initialization of food and obstacles
+    # We pass an empty list of obstacles to start with
     food = Food((0, 255, 0), 1)
     food.spawn([], snake.body)
 
@@ -40,9 +38,8 @@ def main():
     level = 1
     running = True
 
-
     while running:
-        screen.fill((0, 0, 0))  # Очистка экрана
+        screen.fill((0, 0, 0))  # clear display
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -60,10 +57,10 @@ def main():
                 if event.key == pygame.K_RIGHT and snake.direction != (-20, 0):
                     snake.direction = (20, 0)
 
-        # Движение змейки
+
         head = snake.move()
 
-        # Проверка столкновения со стенами
+        # Check for collisions with walls
         if (head[0] < 0 or head[0] >= SCREEN_WIDTH or
                 head[1] < 0 or head[1] >= SCREEN_HEIGHT or
                 head in snake.body[1:]):
@@ -71,7 +68,7 @@ def main():
             db.save_result(username, score, level)  # Сохранение в БД (Task 3.1)
             running = False
 
-        # Проверка поедания еды
+        # Food Eating Check
         if head == food.pos:
             score += food.weight
             food.spawn([], snake.body)
@@ -81,20 +78,18 @@ def main():
         else:
             snake.body.pop()  # Удаляем хвост, если ничего не съели
 
-        # ОТРИСОВКА
-        # Рисуем змейку
+        # Draw a snake
         for block in snake.body:
             pygame.draw.rect(screen, snake.color, (block[0], block[1], 18, 18))
 
-        # Рисуем еду
+        # Draw a food
         pygame.draw.rect(screen, food.color, (food.pos[0], food.pos[1], 20, 20))
 
-        # Текст (Score, Level, User)
         info_txt = font_small.render(f"User: {username} | Score: {score} | Level: {level}", True, (255, 255, 255))
         screen.blit(info_txt, (10, 10))
 
         pygame.display.flip()
-        clock.tick(10 + level)  # Скорость растет с уровнем
+        clock.tick(10 + level)  # Speed
 
     pygame.quit()
 

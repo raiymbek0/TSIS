@@ -14,7 +14,7 @@ class Database:
 
     def create_tables(self):
         with self.conn.cursor() as cur:
-            # Создаем таблицы для игроков и сессий
+            # Create tables for players and sessions
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS players (
                     id SERIAL PRIMARY KEY,
@@ -32,12 +32,12 @@ class Database:
 
     def save_result(self, username, score, level):
         with self.conn.cursor() as cur:
-            # Сохраняем игрока, если его нет
+            # Save the player if he is not there
             cur.execute("INSERT INTO players (username) VALUES (%s) ON CONFLICT (username) DO NOTHING", (username,))
-            # Получаем ID игрока
+            # Get the player ID
             cur.execute("SELECT id FROM players WHERE username = %s", (username,))
             player_id = cur.fetchone()[0]
-            # Записываем результат игры
+            # Record the game result
             cur.execute("INSERT INTO game_sessions (player_id, score, level_reached) VALUES (%s, %s, %s)",
                         (player_id, score, level))
         self.conn.commit()

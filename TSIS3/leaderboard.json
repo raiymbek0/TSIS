@@ -13,30 +13,30 @@
     },
     {
         "name": "Player",
+        "score": 13
+    },
+    {
+        "name": "Player",
         "score": 12
     },
     {
         "name": "Player",
-        "score": 7
+        "score": 12
+    },
+    {
+        "name": "Player",
+        "score": 12
+    },
+    {
+        "name": "Player",
+        "score": 10
+    },
+    {
+        "name": "Player",
+        "score": 8
     },
     {
         "name": "Player",
         "score": 7
-    },
-    {
-        "name": "Player",
-        "score": 4
-    },
-    {
-        "name": "Player",
-        "score": 2
-    },
-    {
-        "name": "Player",
-        "score": 1
-    },
-    {
-        "name": "Player",
-        "score": 1
     }
 ]
