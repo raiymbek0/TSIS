@@ -1,4 +1,4 @@
-db_params = {
+DB_CONFIG = {
     "dbname": "postgres",
     "user": "postgres",
     "password": "raion2008",
